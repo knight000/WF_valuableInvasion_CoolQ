@@ -17,35 +17,35 @@ def ReadList():
     return data
 
 
-@on_command('Add', aliases=('add', 'WFI添加'))
+@on_command('Add', aliases=('add', '添加物品'))
 async def Add(session: CommandSession):
-    list1 = ReadList()
+    ItemList = ReadList()
     # 从会话状态（session.state）中获取物品名称（item），如果当前不存在，则询问用户
+    session.state['item'] = session.current_arg_text.strip()
     item = session.get('item', prompt='请输入你要添加的物品')
-    if item not in list1:
-        list1.append(item)
-        SaveList(list1)
-        await session.send("已储存")
+    if item not in ItemList:
+        ItemList.append(item)
+        SaveList(ItemList)
+        await session.send("已添加["+item+"]")
     else:
         await session.send("此物品已在列表里")
 
 
-# @Add.args_parser
-# async def _(session: CommandSession):
-#     # 去掉消息首尾的空白符
-#     stripped_arg = session.current_arg_text.strip()
+@on_command('Delete', aliases=('del', '删除物品'))
+async def Delete(session: CommandSession):
+    ItemList = ReadList()
+    session.state['item'] = session.current_arg_text.strip()
+    item = session.get('item', prompt='请输入你要添加的物品')
+    if item in ItemList:
+        ItemList.remove(item)
+        SaveList(ItemList)
+        await session.send("已删除["+item+"]")
+    else:
+        await session.send("此物品不在列表里")
 
-#     if not stripped_arg:
-#         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
-#         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-#         session.pause('物品错误，请重新输入')
 
-#     # 如果当前正在向用户询问更多信息，且用户输入有效，则放入会话状态
-#     session.state[session.current_key] = stripped_arg
-
-
-@on_command('Inquire', aliases=('inquire', '查看列表'))
-async def Inquire(session: CommandSession):
+@on_command('SendItemList', aliases=('item', '查看列表'))
+async def SendItemList(session: CommandSession):
     f = open("awesome\\plugins\\data.list", "r")
     message = "当前已获取列表：\n"+f.read()
     await session.send(message)
