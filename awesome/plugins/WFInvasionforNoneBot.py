@@ -93,10 +93,10 @@ def ReadList():
 
 RepeatID = set()  # 这里是记录已提醒的集合
 bot = nonebot.get_bot()
-@nonebot.scheduler.scheduled_job('interval', minutes=1)
+@nonebot.scheduler.scheduled_job('interval', minutes=5)
 async def _():
     check = UseInvasionData(GetData())
-    f = open("awesome\\plugins\\QQ.txt", "r")
+    f = open("QQ.txt", "r")
     QQ = int(f.readline())
     f.close
     if check != "":
