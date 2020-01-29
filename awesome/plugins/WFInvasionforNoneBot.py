@@ -1,7 +1,5 @@
 import json
 import ssl
-import sys
-import time
 import urllib.request
 import nonebot
 # 这个是给机器人用的版本，用nonebot输出
@@ -70,15 +68,15 @@ def UseInvasionData(invasions):
             # 用奖励的数量来判断是不是武器部件
             node = dict1['node']
             completion = str(int(dict1['completion']))
-            ReturnData = ReturnData+"节点:"+node+"，奖励是:[" + \
+            ReturnData = ReturnData+"\n节点:"+node+"，奖励是:[" + \
                 GetZh(attackerItem['type'])+']和[' + \
-                GetZh(defenderItem['type'])+"]当前进度："+completion+"%\n"
+                GetZh(defenderItem['type'])+"]当前进度："+completion+"%"
             if GetZh(attackerItem['type']) in Gotlist:
                 ReturnData = ReturnData + \
-                    "其中["+GetZh(attackerItem['type'])+"]已拥有\n"
+                    "\n其中["+GetZh(attackerItem['type'])+"]已拥有"
             if GetZh(defenderItem['type']) in Gotlist:
                 ReturnData = ReturnData + \
-                    "其中["+GetZh(defenderItem['type'])+"]已拥有\n"
+                    "\n其中["+GetZh(defenderItem['type'])+"]已拥有"
     return ReturnData
 
 
@@ -100,6 +98,6 @@ async def _():
     QQ = int(f.readline())
     f.close
     if check != "":
-        check = "发现高价值入侵：\n"+check
+        check = "发现高价值入侵:"+check
         print(check)
         await bot.send_private_msg(user_id=QQ, message=check)

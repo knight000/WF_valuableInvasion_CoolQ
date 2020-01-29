@@ -29,7 +29,7 @@ async def Add(session: CommandSession):
         await session.send("已添加["+item+"]")
     else:
         await session.send("此物品已在列表里")
-    await session.finish()
+    session.finish()
 
 
 @on_command('Delete', aliases=('del', '删除物品'),permission=permission.SUPERUSER)
@@ -43,7 +43,7 @@ async def Delete(session: CommandSession):
         await session.send("已删除["+item+"]")
     else:
         await session.send("此物品不在列表里")
-    await session.finish()
+    session.finish()
 
 
 @on_command('SendItemList', aliases=('item', '查看列表'),permission=permission.SUPERUSER)
@@ -51,4 +51,4 @@ async def SendItemList(session: CommandSession):
     f = open("awesome\\plugins\\data.list", "r")
     message = "当前已获取列表：\n"+f.read()
     await session.send(message)
-    await session.finish()
+    session.finish()
