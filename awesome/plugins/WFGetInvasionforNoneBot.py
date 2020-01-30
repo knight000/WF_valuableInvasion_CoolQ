@@ -18,7 +18,8 @@ def GetZh(name):
             continue
 
 
-def GetInvasion():
+@on_command('Invasion', aliases=('invasion', '入侵'))
+async def Invasion(session: CommandSession):
     url = "https://api.warframestat.us/pc/invasions"
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                'Chrome/51.0.2704.63 Safari/537.36'}
@@ -27,7 +28,6 @@ def GetInvasion():
     data = json.loads(res.read())
     message = "当前入侵为："
     for invasion in data:
-        #invasion = dict[i]
         defender = dict(invasion['defenderReward'])
         defenderItem = defender['countedItems']
         defenderItem = dict(defenderItem[0])
@@ -36,23 +36,14 @@ def GetInvasion():
         if invasion['completion'] <= 0 or invasion['completion'] >= 100:
             continue
         if invasion['vsInfestation'] == True:
-            message = message+"\n节点:"+node + \
+            message += "\n节点:"+node + \
                 "奖励是:["+GetZh(defenderItem['type'])+"]当前进度:"+completion+"%"
         else:
             attacker = dict(invasion['attackerReward'])
             attackerItem = attacker['countedItems']
             attackerItem = dict(attackerItem[0])
-            message = message+"\n节点:"+node+"奖励是:[" + \
+            message += "\n节点:"+node+"奖励是:[" + \
                 GetZh(defenderItem['type'])+"]或[" + \
                 GetZh(attackerItem['type'])+"]当前进度:"+completion+"%"
-    return message
-
-
-@on_command('Invasion', aliases=('invasion', '入侵'))
-async def Invasion(session: CommandSession):
-    try:
-        message = GetInvasion()
-        await session.send(message)
-        session.finish()
-    except:
-        session.finish()
+    await session.send(message)
+    session.finish()
