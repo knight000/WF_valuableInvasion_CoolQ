@@ -15186,27 +15186,9 @@
         "en": "Ignis Towsun Skin"
     },
     {
-        "id": 2546,
-        "type": "Blueprint",
-        "zh": "特殊功能槽连接器 蓝图",
-        "en": "Exilus Adapter Blueprint"
-    },
-    {
-        "id": 2547,
-        "type": "Blueprint",
-        "zh": "OROKIN催化剂 蓝图",
-        "en": "Orokin Catalyst Blueprint"
-    },
-    {
-        "id": 2548,
-        "type": "Blueprint",
-        "zh": "OROKIN反应堆 蓝图",
-        "en": "Orokin Reactor Blueprint"
-    },
-    {
-        "id": 2549,
-        "type": "Blueprint",
-        "zh": "FORMA 蓝图",
-        "en": "FORMA Blueprint"
+        "id": 2556,
+        "type": "Word",
+        "zh": "安魂",
+        "en": "Requiem"
     }
 ]

@@ -13,6 +13,25 @@ async def GetDate():
     res = urllib.request.urlopen(req)
     return res.read()
 
+
+async def GetZh(en):
+    with open("awesome\\plugins\\WF_Dict.json", "r", encoding="UTF-8") as f:
+        # 翻译文件来自https://github.com/Richasy/WFA_Lexicon
+        wfDictList = json.load(f)
+    for wfDict in wfDictList:
+        if en == wfDict['en']:
+            return wfDict['zh']
+    return en
+
+
+async def GetNodeZh(node):
+    Planet = node[node.find('(')+1:node.find(')')]
+    node = node[:node.find('(')]
+    Planet = await GetZh(Planet)
+    node += '('+Planet+')'
+    return node
+
+
 RepeatID = set()  # 这里是记录已提醒的集合
 bot = nonebot.get_bot()
 @nonebot.scheduler.scheduled_job('interval', minutes=5)
@@ -24,6 +43,9 @@ async def _():
     ReturnData = ""
     invasions = json.loads(await GetDate())
     global RepeatID
+    with open("awesome\\plugins\\WF_Invasion.json", "r", encoding="UTF-8") as f:
+        # 翻译文件来自https://github.com/Richasy/WFA_Lexicon
+        wfDictList = json.load(f)
     for dict1 in invasions:
         #dict1 = dict(a)
         if dict1['id'] in RepeatID:
@@ -46,9 +68,6 @@ async def _():
         # 这里是汉化
         attackerItem = attackerItemDict['type']
         defenderItem = defenderItemDict['type']
-        with open("awesome\\plugins\\WF_Dict.json", "r", encoding="UTF-8") as f:
-            # 翻译文件来自https://github.com/Richasy/WFA_Lexicon
-            wfDictList = json.load(f)
         for list1 in wfDictList:
             wfDict = dict(list1)
             if wfDict['en'] == attackerItem:
@@ -69,11 +88,11 @@ async def _():
         # if dict1['rewardTypes'] in highvalue:
         if attackerItemDict['count'] == 1 or defenderItemDict['count'] == 1:
             # 用奖励的数量来判断是不是武器部件
-            node = dict1['node']
+            node = await GetNodeZh(dict1['node'])
             completion = str(int(dict1['completion']))
-            ReturnData += "\n节点:"+node+"，奖励是:[" + \
+            ReturnData += "\n"+node+"，奖励是:[" + \
                 attackerItem+']和[' + \
-                defenderItem+"]当前进度："+completion+"%"
+                defenderItem+"]\n当前进度："+completion+"%"
             if attackerItem in Gotlist:
                 ReturnData += "\n其中["+attackerItem+"]已拥有"
             if defenderItem in Gotlist:
