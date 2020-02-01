@@ -4,14 +4,18 @@ import urllib.request
 from nonebot import on_command, CommandSession
 
 
-@on_command('Invasion', aliases=('invasion', '入侵'))
-async def Invasion(session: CommandSession):
-    url = "https://api.warframestat.us/pc/invasions"
+async def GetDate():
+    url = "https://api.warframestat.us/pc/invasions"  # 直接获取入侵的数据
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                'Chrome/51.0.2704.63 Safari/537.36'}
     req = urllib.request.Request(url=url, headers=headers)
     res = urllib.request.urlopen(req)
-    data = json.loads(res.read())
+    return res.read()
+
+
+@on_command('Invasion', aliases=('invasion', '入侵'))
+async def Invasion(session: CommandSession):
+    data = json.loads(await GetDate())
     message = "当前入侵为："
     for invasion in data:
         defender = dict(invasion['defenderReward'])

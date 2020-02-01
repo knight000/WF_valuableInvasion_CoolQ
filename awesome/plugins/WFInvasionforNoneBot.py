@@ -5,6 +5,14 @@ import nonebot
 # 这个是给机器人用的版本，用nonebot输出
 
 
+async def GetDate():
+    url = "https://api.warframestat.us/pc/invasions"  # 直接获取入侵的数据
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
+               'Chrome/51.0.2704.63 Safari/537.36'}
+    req = urllib.request.Request(url=url, headers=headers)
+    res = urllib.request.urlopen(req)
+    return res.read()
+
 RepeatID = set()  # 这里是记录已提醒的集合
 bot = nonebot.get_bot()
 @nonebot.scheduler.scheduled_job('interval', minutes=5)
@@ -14,12 +22,8 @@ async def _():
     f.close()
     Gotlist = Gotlist.splitlines()
     ReturnData = ""
-    url = "https://api.warframestat.us/pc/invasions"  # 直接获取入侵的数据
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
-               'Chrome/51.0.2704.63 Safari/537.36'}
-    req = urllib.request.Request(url=url, headers=headers)
-    res = urllib.request.urlopen(req)
-    invasions = json.loads(res.read())
+    invasions = json.loads(await GetDate())
+    global RepeatID
     for dict1 in invasions:
         #dict1 = dict(a)
         if dict1['id'] in RepeatID:
