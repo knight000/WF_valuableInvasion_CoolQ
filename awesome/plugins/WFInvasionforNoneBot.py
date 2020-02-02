@@ -1,17 +1,13 @@
 import json
-import ssl
-import urllib.request
+import requests
 import nonebot
 # 这个是给机器人用的版本，用nonebot输出
 
 
-async def GetDate():
-    url = "https://api.warframestat.us/pc/invasions"  # 直接获取入侵的数据
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
-               'Chrome/51.0.2704.63 Safari/537.36'}
-    req = urllib.request.Request(url=url, headers=headers)
-    res = urllib.request.urlopen(req)
-    return res.read()
+async def GetDate(DataType):
+    url = "https://api.warframestat.us/pc/"+DataType
+    data = requests.get(url, verify=False)
+    return data.text
 
 
 async def GetZh(en):
@@ -41,7 +37,7 @@ async def _():
     f.close()
     Gotlist = Gotlist.splitlines()
     ReturnData = ""
-    invasions = json.loads(await GetDate())
+    invasions = json.loads(await GetDate('invasions'))
     global RepeatID
     with open("awesome\\plugins\\WF_Invasion.json", "r", encoding="UTF-8") as f:
         # 翻译文件来自https://github.com/Richasy/WFA_Lexicon

@@ -48,6 +48,7 @@ SUPERUSERS = {123456}
 | 'sortie', '突击'                       | 查看当前突击信息         |
 | 'fissures', '裂隙', '裂缝', '虚空裂隙' | 查看当前虚空裂隙信息     |
 | 'arbitration', '仲裁'                  | 查看当前仲裁信息         |
+| 'riven', '倾向'                        | 查询紫卡倾向             |
 
 ### 提醒示例
 
@@ -57,17 +58,13 @@ SUPERUSERS = {123456}
 
 ### 文件说明
 
-这里是在`awesome/plugins`里的文件说明  
+这里是在`awesome/plugins`里的文件说明，理论上可以直接放进其他已经配置好的nonebot使用  
 
-| 文件                                           | 说明                                                         |
-| ---------------------------------------------- | ------------------------------------------------------------ |
-| WFInvasionforNoneBot.py                        | 获取高价值入侵并5分钟推送一次                                |
-| WFIsaveforNoneBot.py                           | 储存/更改已获得列表                                          |
-| WFGetInvasionforNoneBot.py                     | 查看入侵，可单独使用                                         |
-| WFGetFissuresforNoneBot.py                     | 查看虚空裂隙，可单独使用                                     |
-| WFGetSortieforNoneBot.py                       | 查看突击，可单独使用                                         |
-| WFGetvoidTraderforNoneBot.py                   | 查看虚空商人，可单独使用                                     |
-| WFGetArbitrationforNoneBot.py                  | 查看仲裁，可单独使用                                         |
-| WF_Dict.json/WF_Invasion.json/WF_Modifier.json | 翻译文件，来自[WFA_Lexicon](https://github.com/Richasy/WFA_Lexicon) |
-| data.list                                      | 储存已获得物品的文件                                         |
+| 文件                                                         | 说明                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| WFInvasionforNoneBot.py                                      | 获取高价值入侵并5分钟推送一次                                |
+| WFIsaveforNoneBot.py                                         | 储存/更改已获得列表                                          |
+| WFAlertingforNoneBot.py                                      | 实时信息模块，可单独使用                                     |
+| WF_Dict.json/WF_Invasion.json/WF_Modifier.json/WF_Riven.json | 翻译文件，来自[WFA_Lexicon](https://github.com/Richasy/WFA_Lexicon) |
+| data.list                                                    | 储存已获得物品的文件                                         |
 
