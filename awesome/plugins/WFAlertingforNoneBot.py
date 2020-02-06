@@ -37,6 +37,20 @@ async def GetModifierZh(en):
     return en
 
 
+async def GetCycleZh(en):
+    CycleDict = {
+        "night": "夜晚",
+        "day": "白昼",
+        "cold": "刺骨",
+        "warm": "温暖"
+    }
+    try:
+        zh = CycleDict[en]
+        return zh
+    except:
+        return en
+
+
 @on_command('voidTrader', aliases=('voidtrader', '虚空商人', 'baro'), only_to_me=False)
 async def voidTrader(session: CommandSession):
     data = json.loads(await GetDate('voidTrader'))
@@ -128,6 +142,29 @@ async def Fissures(session: CommandSession):
 async def Arbitration(session: CommandSession):
     data = json.loads(await GetDate('arbitration'))
     message = "当前仲裁为:\n"+data['tile']+"("+await GetZh(data['planet'])+")\n"+data['enemy']+await GetZh(data['type'])
+    await session.send(message)
+    session.finish()
+
+
+@on_command('sentientOutposts', aliases=('sentientoutposts', 'S船', '前哨战'), only_to_me=False)
+async def sentientOutposts(session: CommandSession):
+    data = json.loads(await GetDate('sentientOutposts'))
+    if data['active'] == True:
+        mission = dict(data['mission'])
+        message = "sentient前哨战已出现\n节点："+await GetNodeZh(mission['node'])+"\n任务类型："+await GetZh(mission['type'])
+    else:
+        message = "sentient前哨战未出现"
+    await session.send(message)
+    session.finish()
+
+
+@on_command('Cycle', aliases=('cycle', 'wf时间'), only_to_me=False)
+async def Cycle(session: CommandSession):
+    data = json.loads(await GetDate(''))
+    earthCycle = dict(data['earthCycle'])
+    cetusCycle = dict(data['cetusCycle'])
+    vallisCycle = dict(data['vallisCycle'])
+    message = "地球:"+await GetCycleZh(earthCycle['state'])+"\n剩余时间:"+earthCycle['timeLeft']+"\n希图斯:"+await GetCycleZh(cetusCycle['state'])+"\n剩余时间:"+cetusCycle['timeLeft']+"\n福尔图娜:"+await GetCycleZh(vallisCycle['state'])+"\n剩余时间:"+vallisCycle['timeLeft']
     await session.send(message)
     session.finish()
 
