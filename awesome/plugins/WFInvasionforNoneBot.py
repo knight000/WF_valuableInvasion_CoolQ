@@ -1,5 +1,5 @@
 import json
-import requests
+from reqLibs import requests
 import nonebot
 # 这个是给机器人用的版本，用nonebot输出
 
@@ -7,8 +7,9 @@ import nonebot
 async def GetDate(DataType):
     try:
         url = "https://api.warframestat.us/pc/"+DataType
-        data = requests.get(url, verify=False)
-        return data.text
+        data = await requests.get(url, verify=False)
+        data = json.loads(await data.text)
+        return data
     except:
         return False
 
@@ -44,7 +45,6 @@ async def _():
     if invasions == False:
         print('获取信息失败')
     else:
-        invasions = json.loads(invasions)
         global RepeatID
         with open("awesome\\plugins\\WF_Invasion.json", "r", encoding="UTF-8") as f:
             # 翻译文件来自https://github.com/Richasy/WFA_Lexicon

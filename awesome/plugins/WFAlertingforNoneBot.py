@@ -1,13 +1,14 @@
 import json
-import requests
+from reqLibs import requests
 from nonebot import on_command, CommandSession
 
 
 async def GetDate(DataType):
     try:
         url = "https://api.warframestat.us/pc/"+DataType
-        data = requests.get(url, verify=False)
-        return data.text
+        data = await requests.get(url, verify=False)
+        data = json.loads(await data.text)
+        return data
     except:
         return False
 
@@ -60,7 +61,6 @@ async def voidTrader(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         if data['active'] == False:
             message = "Baro Ki'Teer在路上\n到达剩余时间:"+data['startString']
         else:
@@ -81,7 +81,6 @@ async def Sortie(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         message = "当前突击为:"
         for sortie in data['variants']:
             message += "\n["+await GetZh(sortie['missionType'])+"]"+await GetNodeZh(sortie['node'])+"\n"+await GetModifierZh(sortie['modifier'])
@@ -96,7 +95,6 @@ async def Invasion(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         message = "当前入侵为："
         with open("awesome\\plugins\\WF_Invasion.json", "r", encoding="UTF-8") as f:
             # 翻译文件来自https://github.com/Richasy/WFA_Lexicon
@@ -142,7 +140,6 @@ async def Fissures(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         message = "当前裂隙为："
         for fissure in data:
             if fissure['expired'] == True:
@@ -159,7 +156,6 @@ async def Arbitration(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         message = "当前仲裁为:\n"+data['tile']+"("+await GetZh(data['planet'])+")\n"+data['enemy']+await GetZh(data['type'])
         session.finish(message)
 
@@ -170,7 +166,6 @@ async def sentientOutposts(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         if data['active'] == True:
             mission = dict(data['mission'])
             message = "sentient前哨战已出现\n节点："+await GetNodeZh(mission['node'])+"\n任务类型："+await GetZh(mission['type'])
@@ -185,7 +180,6 @@ async def Cycle(session: CommandSession):
     if data == False:
         session.finish('获取信息失败，请稍后再试')
     else:
-        data = json.loads(data)
         earthCycle = dict(data['earthCycle'])
         cetusCycle = dict(data['cetusCycle'])
         vallisCycle = dict(data['vallisCycle'])
@@ -215,3 +209,23 @@ async def RivenData(session: CommandSession):
     else:
         await session.send('未查询到相关信息')
     session.finish()
+
+
+@on_command('warframe_market', aliases=('wm', '市场'), only_to_me=False)
+async def warframe_market(session: CommandSession):
+    wmurl = 'warframe.market/items/'
+    with open("awesome\\plugins\\WF_Sale.json", "r", encoding="UTF-8") as f:
+        SaleList = json.load(f)
+    session.state['item'] = session.current_arg_text.strip()
+    item = session.get('item', prompt='请输入你要查询的物品')
+    message = ''
+    for Sale in SaleList:
+        if Sale['zh'] == item or Sale['en'] == item:
+            message = Sale['zh']+'的wm链接为:\n'+wmurl+Sale['search']
+            break
+        else:
+            continue
+    if message == '':
+        session.finish('未找到相关信息')
+    else:
+        session.finish(message)
