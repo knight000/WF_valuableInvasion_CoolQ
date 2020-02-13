@@ -36,7 +36,7 @@ SUPERUSERS = {123456}
 
 添加进已获取物品列表的物品会在入侵来的时候有提示，如果两个奖励都是已获取的，则本次入侵不提醒
 
-指令的前缀是**#**，请用**空格**隔开，例如`#添加物品 狙击特昂 破坏者 蓝图`  
+指令的前缀是#，指令之间请用**空格**隔开，例如`#添加物品 狙击特昂 破坏者 蓝图`  
 
 | 指令                                   | 效果                                    |
 | -------------------------------------- | --------------------------------------- |
@@ -69,7 +69,7 @@ SUPERUSERS = {123456}
 | WFIsaveforNoneBot.py                                  | 储存/更改已获得列表                                          |
 | WFAlertingforNoneBot.py                               | 实时信息模块，可单独使用                                     |
 | WF_Dict/WF_Invasion/WF_Modifier/WF_Riven/WF_Sale.json | 翻译文件，来自[WFA_Lexicon](https://github.com/Richasy/WFA_Lexicon) |
-| data.list                                             | 储存已获得物品的文件# 停更声明                               |
+| data.list                                             | 储存已获得物品的文件                                         |
 
 ### 备注
 
