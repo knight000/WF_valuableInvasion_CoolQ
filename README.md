@@ -1,5 +1,7 @@
 # WF_valuableInvasion_CoolQ
-> Warframe高价值入侵提醒机器人
+> Warframe高价值入侵提醒机器人(曾经)
+>
+> 现在多了各种各样的新功能
 
 基于NoneBot的QQ机器人
 
@@ -38,26 +40,43 @@ SUPERUSERS = {123456}
 
 指令的前缀是#，指令之间请用**空格**隔开，例如`#添加物品 狙击特昂 破坏者 蓝图`  
 
-| 指令                                   | 效果                                    |
-| -------------------------------------- | --------------------------------------- |
-| 'add', '添加物品'                      | 把物品添加进已获取物品                  |
-| 'del', '删除物品'                      | 把物品从已获取物品中删除                |
-| 'item', '查看列表'                     | 查看已添加物品                          |
-| 'invasion', '入侵'                     | 查看当前全部入侵                        |
-| 'voidtrader', '虚空商人', 'baro'       | 查看当前虚空商人信息                    |
-| 'sortie', '突击'                       | 查看当前突击信息                        |
-| 'fissures', '裂隙', '裂缝', '虚空裂隙' | 查看当前虚空裂隙信息                    |
-| 'arbitration', '仲裁'                  | 查看当前仲裁信息                        |
-| 'sentientoutposts', 'S船', '前哨战'    | 查看S船前哨战信息                       |
-| 'cycle', 'wf时间'                      | 查看地球/希图斯/福尔图娜周期信息        |
-| 'riven', '倾向'                        | 查询紫卡倾向                            |
-| 'wm', '市场'                           | 获取某样物品的[wm](warframe.market)链接 |
+| 指令                                   | 效果                                                         |
+| -------------------------------------- | ------------------------------------------------------------ |
+| 'add', '添加物品'                      | 把物品添加进已获取物品                                       |
+| 'del', '删除物品'                      | 把物品从已获取物品中删除                                     |
+| 'item', '查看列表'                     | 查看已添加物品                                               |
+| 'invasion', '入侵'                     | 查看当前全部入侵                                             |
+| 'voidtrader', '虚空商人', 'baro'       | 查看当前虚空商人信息                                         |
+| 'sortie', '突击'                       | 查看当前突击信息                                             |
+| 'fissures', '裂隙', '裂缝', '虚空裂隙' | 查看当前虚空裂隙信息                                         |
+| 'arbitration', '仲裁'                  | 查看当前仲裁信息                                             |
+| 'sentientoutposts', 'S船', '前哨战'    | 查看S船前哨战信息                                            |
+| 'cycle', 'wf时间'                      | 查看地球/希图斯/福尔图娜周期信息                             |
+| 'riven', '倾向'                        | 查询紫卡倾向                                                 |
+| 'wm', '市场'                           | 获取某样物品的[wm](warframe.market)链接和前五位出家最低的卖家 |
 
 ### 提醒示例
 
 >发现高价值入侵：
 >节点:Despina (Neptune)，奖励是:[希芙 刀刃]和[德拉 破坏者 枪机]当前进度：50%
 >其中[德拉 破坏者 枪机]已拥有
+>
+
+### wm查询示例
+>#wm ASH PRIME SET  
+> ASH PRIME 一套的wm链接为:  
+>warframe.market/items/ash_prime_set  
+>以下是出价最低的前五位买家：  
+>出售者[A1]62.0白金  
+>/w A1 Hi! I want to buy: ASH PRIME SET for 62.0 platinum(warframe.market)  
+>出售者[B2]64.0白金  
+>/w B2 Hi! I want to buy: ASH PRIME SET for 64.0 platinum. (warframe.market)  
+>出售者[C3]70.0白金  
+>/w C3 Hi! I want to buy: ASH PRIME SET for 70.0 platinum. (warframe.market)  
+>出售者[D5]70.0白金  
+>/w D5 Hi! I want to buy: ASH PRIME SET for 70.0 platinum. (warframe.market)  
+>出售者[E6]70.0白金  
+>/w E6 Hi! I want to buy: ASH PRIME SET for 70.0 platinum. (warframe.market)   
 
 ### 文件说明
 
@@ -68,6 +87,7 @@ SUPERUSERS = {123456}
 | WFInvasionforNoneBot.py                               | 获取高价值入侵并5分钟推送一次                                |
 | WFIsaveforNoneBot.py                                  | 储存/更改已获得列表                                          |
 | WFAlertingforNoneBot.py                               | 实时信息模块，可单独使用                                     |
+| WarframeMarketforNoneBot                              | wm查询模块，可单独使用                                       |
 | WF_Dict/WF_Invasion/WF_Modifier/WF_Riven/WF_Sale.json | 翻译文件，来自[WFA_Lexicon](https://github.com/Richasy/WFA_Lexicon) |
 | data.list                                             | 储存已获得物品的文件                                         |
 

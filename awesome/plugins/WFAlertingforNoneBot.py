@@ -209,23 +209,3 @@ async def RivenData(session: CommandSession):
     else:
         await session.send('未查询到相关信息')
     session.finish()
-
-
-@on_command('warframe_market', aliases=('wm', '市场'), only_to_me=False)
-async def warframe_market(session: CommandSession):
-    wmurl = 'warframe.market/items/'
-    with open("awesome\\plugins\\WF_Sale.json", "r", encoding="UTF-8") as f:
-        SaleList = json.load(f)
-    session.state['item'] = session.current_arg_text.strip()
-    item = session.get('item', prompt='请输入你要查询的物品')
-    message = ''
-    for Sale in SaleList:
-        if Sale['zh'] == item or Sale['en'] == item:
-            message = Sale['zh']+'的wm链接为:\n'+wmurl+Sale['search']
-            break
-        else:
-            continue
-    if message == '':
-        session.finish('未找到相关信息')
-    else:
-        session.finish(message)
