@@ -13,6 +13,7 @@ async def Add(session: CommandSession):
     item = session.get('item', prompt='请输入你要添加的物品')
     if item not in ItemList:
         ItemList.append(item)
+        ItemList.sort()
         f = open("awesome\\plugins\\data.list", "w")
         for w in ItemList:
             f.write(w+"\n")
