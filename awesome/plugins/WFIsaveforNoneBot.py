@@ -32,7 +32,7 @@ async def Delete(session: CommandSession):
     ItemList = data.splitlines()
     f.close()
     session.state['item'] = session.current_arg_text.strip()
-    item = session.get('item', prompt='请输入你要添加的物品')
+    item = session.get('item', prompt='请输入你要删除的物品')
     if item in ItemList:
         ItemList.remove(item)
         f = open("awesome\\plugins\\data.list", "w")

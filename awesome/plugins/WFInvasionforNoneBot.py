@@ -33,9 +33,9 @@ async def GetNodeZh(node):
 
 
 RepeatID = set()  # 这里是记录已提醒的集合
-bot = nonebot.get_bot()
 @nonebot.scheduler.scheduled_job('interval', minutes=15)
 async def _():
+    bot = nonebot.get_bot()
     f = open("awesome\\plugins\\data.list", "r")
     Gotlist = f.read()  # 获取已拥有的列表
     f.close()

@@ -1,3 +1,4 @@
 nonebot==1.4.0
 requests==2.22.0
 msgpack-python==0.5.6
+APScheduler==3.6.3
